@@ -58,9 +58,12 @@ public class FlutterViewDelegate {
     List<Rect> boundingRects = getCaptionBarInsets(context);
     int viewPaddingTop = viewportMetrics.viewPaddingTop;
     for (Rect rect : boundingRects) {
-      viewPaddingTop = Math.max(viewPaddingTop, rect.bottom);
+        if (rect.top == 0) {
+            continue;
+        }
+        viewPaddingTop = Math.max(viewPaddingTop, rect.bottom);
     }
-    // The value getCaptionBarInset returns is only the bounding rects of the caption bar.
+    // The value getCaptionBarInset returns is invalidonly the bounding rects of the caption bar.
     // When assigning the new value of viewPaddingTop, the maximum is taken with its old value
     // to ensure that any previous top padding that is greater than that from the caption bar
     // is not destroyed by this operation.
